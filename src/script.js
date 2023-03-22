@@ -67,10 +67,12 @@ const material = new THREE.RawShaderMaterial({
   side: THREE.DoubleSide,
   uniforms: {
     uLevels: { value: 0.2 },
+    uFrequency: { value: new THREE.Vector2(10, 0.2) },
   },
 });
 
-gui.add(material.uniforms.uLevels, "value").min(0).max(2).step(0.001);
+gui.add(material.uniforms.uFrequency.value, "y").min(0).max(2).step(0.001);
+gui.add(material.uniforms.uFrequency.value, "x").min(0).max(20).step(0.01);
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material);

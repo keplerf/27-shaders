@@ -2,6 +2,7 @@ uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform float uLevels;
+uniform vec2 uFrequency;
 
 attribute vec3 position;
 attribute float aRandow;
@@ -24,7 +25,9 @@ void main(){
   // vec4 foo2 = vec4(foo, foo);
 
   vec4 modelPositions = modelMatrix * vec4(position, 1.0);
-  modelPositions.z += aRandow * uLevels;
+  // modelPositions.z += aRandow * uLevels;
+  modelPositions.z += sin(position.x * uFrequency.x ) *  uFrequency.y;
+
   vec4 viewPositions = viewMatrix * modelPositions;
   vec4 projectPositions = projectionMatrix * viewPositions;
 

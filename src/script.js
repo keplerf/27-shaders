@@ -50,13 +50,27 @@ const light = new THREE.AmbientLight(0xffffff, 1, 100);
 light.position.set(10, 10, 10);
 scene.add(light);
 
+const count = geometry.attributes.position.count;
+const randows = new Float32Array(count);
+
+for (var i = 0; i < count; i++) {
+  randows[i] = Math.random();
+}
+
+geometry.setAttribute("aRandow", new THREE.BufferAttribute(randows, 1));
+
 // Material
 // const material = new THREE.MeshBasicMaterial();
 const material = new THREE.RawShaderMaterial({
   vertexShader: testVertexShader,
   fragmentShader: testFragmentShader,
   side: THREE.DoubleSide,
+  uniforms: {
+    uLevels: { value: 0.2 },
+  },
 });
+
+gui.add(material.uniforms.uLevels, "value").min(0).max(2).step(0.001);
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material);

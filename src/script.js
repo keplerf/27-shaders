@@ -39,7 +39,7 @@ const scene = new THREE.Scene();
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
-
+const flagTexture = textureLoader.load("/textures/flag-french.jpg");
 /**
  * Test mesh
  */
@@ -66,16 +66,20 @@ const material = new THREE.RawShaderMaterial({
   fragmentShader: testFragmentShader,
   side: THREE.DoubleSide,
   uniforms: {
-    uLevels: { value: 0.2 },
-    uFrequency: { value: new THREE.Vector2(10, 0.2) },
+    uTexture: { value: flagTexture },
+    uTime: { value: 0 },
+    uFrequency: { value: new THREE.Vector2(11, 5) },
+    uColor: { value: new THREE.Color("cyan") },
   },
 });
 
 gui.add(material.uniforms.uFrequency.value, "y").min(0).max(2).step(0.001);
 gui.add(material.uniforms.uFrequency.value, "x").min(0).max(20).step(0.01);
+// gui.add(material.uniforms.uColor, "value").;
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material);
+mesh.scale.y = 2 / 3;
 scene.add(mesh);
 
 /**
@@ -133,6 +137,7 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+  material.uniforms.uTime.value = elapsedTime;
 
   // Update controls
   controls.update();

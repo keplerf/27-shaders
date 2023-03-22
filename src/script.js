@@ -73,7 +73,7 @@ const material = new THREE.RawShaderMaterial({
   },
 });
 
-gui.add(material.uniforms.uFrequency.value, "y").min(0).max(2).step(0.001);
+gui.add(material.uniforms.uFrequency.value, "y").min(0).max(10).step(0.001);
 gui.add(material.uniforms.uFrequency.value, "x").min(0).max(20).step(0.01);
 // gui.add(material.uniforms.uColor, "value").;
 
